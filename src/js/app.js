@@ -6,6 +6,16 @@
     const needle = document.getElementById('needle');
     const buttons = document.querySelectorAll('.btn');
 
+    // Создаём аудио элементы для звуков
+    const medSound = new Audio('sounds/med-rad.mp3');
+    const highSound = new Audio('sounds/high-rad.mp3');
+
+    // Настраиваем звуки для зацикленного воспроизведения
+    medSound.loop = true;
+    highSound.loop = true;
+    medSound.volume = 0.7;
+    highSound.volume = 0.7;
+
     /**
      * Генерирует случайное число в заданном диапазоне
      * @param {number} min - Минимальное значение
@@ -14,6 +24,36 @@
      */
     function getRandomInRange(min, max) {
         return Math.random() * (max - min) + min;
+    }
+
+    /**
+     * Останавливает все звуки
+     */
+    function stopAllSounds() {
+        medSound.pause();
+        highSound.pause();
+        medSound.currentTime = 0;
+        highSound.currentTime = 0;
+    }
+
+    /**
+     * Управляет воспроизведением звуков в зависимости от зоны
+     * @param {number} zone - Номер зоны (1, 2, 3)
+     */
+    function manageSounds(zone) {
+        switch(zone) {
+            case 1: // Зелёная зона - без звука
+                stopAllSounds();
+                break;
+            case 2: // Жёлтая зона - средний уровень радиации
+                highSound.pause();
+                medSound.play().catch(e => console.log('Ошибка воспроизведения:', e));
+                break;
+            case 3: // Красная зона - высокий уровень радиации
+                medSound.pause();
+                highSound.play().catch(e => console.log('Ошибка воспроизведения:', e));
+                break;
+        }
     }
 
     /**
@@ -57,6 +97,7 @@
         }
 
         setNeedlePosition(percent);
+        manageSounds(zone);
 
         // Добавляем небольшую вибрацию кнопке для обратной связи
         const button = document.querySelector(`[data-zone="${zone}"]`);
