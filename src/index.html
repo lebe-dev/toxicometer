@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Токсикометр - шуточное приложение для измерения уровня токсичности">
+    <title>Токсикометр</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="gauge-container">
+            <!-- Иконка радиации -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toxicity-label lucide lucide-radiation-icon lucide-radiation">
+                <path d="M12 12h.01"/>
+                <path d="M14 15.4641a4 4 0 0 1-4 0L7.52786 19.74597 A 1 1 0 0 0 7.99303 21.16211 10 10 0 0 0 16.00697 21.16211 1 1 0 0 0 16.47214 19.74597z"/>
+                <path d="M16 12a4 4 0 0 0-2-3.464l2.472-4.282a1 1 0 0 1 1.46-.305 10 10 0 0 1 4.006 6.94A1 1 0 0 1 21 12z"/>
+                <path d="M8 12a4 4 0 0 1 2-3.464L7.528 4.254a1 1 0 0 0-1.46-.305 10 10 0 0 0-4.006 6.94A1 1 0 0 0 3 12z"/>
+            </svg>
+
+            <svg class="gauge" viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+                <!-- Зелёная зона (низкая токсичность) - 20% -->
+                <path class="gauge-segment green"
+                      d="M 30 100 A 70 70 0 0 1 43.4 58.8"
+                      stroke="#4CAF50"
+                      stroke-width="20"
+                      fill="none"/>
+
+                <!-- Жёлтая зона (средняя токсичность) - 40% -->
+                <path class="gauge-segment yellow"
+                      d="M 43.4 58.8 A 70 70 0 0 1 121.6 33.4"
+                      stroke="#FFC107"
+                      stroke-width="20"
+                      fill="none"/>
+
+                <!-- Красная зона (высокая токсичность) - 40% -->
+                <path class="gauge-segment red"
+                      d="M 121.6 33.4 A 70 70 0 0 1 170 100"
+                      stroke="#F44336"
+                      stroke-width="20"
+                      fill="none"/>
+
+                <!-- Стрелка -->
+                <g id="needle" transform="rotate(-90 100 100)">
+                    <line x1="100" y1="100" x2="100" y2="40"
+                          stroke="#000"
+                          stroke-width="3"
+                          stroke-linecap="round"/>
+                    <circle cx="100" cy="100" r="8" fill="#000"/>
+                    <circle cx="100" cy="100" r="4" fill="#fff"/>
+                </g>
+            </svg>
+        </div>
+
+        <!-- Кнопки управления -->
+        <div class="controls">
+            <button class="btn" data-zone="1">1</button>
+            <button class="btn" data-zone="2">2</button>
+            <button class="btn" data-zone="3">3</button>
+        </div>
+
+        <!-- Версия -->
+        <div class="version">v1.0.0</div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
