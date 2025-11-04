@@ -5,6 +5,9 @@
     // Получаем элементы
     const needle = document.getElementById('needle');
     const buttons = document.querySelectorAll('.btn');
+    const leafIcon = document.querySelector('.icon-leaf');
+    const alertIcon = document.querySelector('.icon-alert');
+    const radiationIcon = document.querySelector('.icon-radiation');
 
     // Создаём аудио элементы для звуков
     const medSound = new Audio('sounds/med-rad.mp3');
@@ -99,6 +102,24 @@
         setNeedlePosition(percent);
         manageSounds(zone);
 
+        // Переключаем иконки в зависимости от зоны
+        if (zone === 1) {
+            // Зелёная зона - показываем лист
+            leafIcon.classList.remove('hidden');
+            alertIcon.classList.add('hidden');
+            radiationIcon.classList.add('hidden');
+        } else if (zone === 2) {
+            // Средняя зона - показываем предупреждение
+            leafIcon.classList.add('hidden');
+            alertIcon.classList.remove('hidden');
+            radiationIcon.classList.add('hidden');
+        } else {
+            // Высокая зона - показываем радиацию
+            leafIcon.classList.add('hidden');
+            alertIcon.classList.add('hidden');
+            radiationIcon.classList.remove('hidden');
+        }
+
         // Добавляем небольшую вибрацию кнопке для обратной связи
         const button = document.querySelector(`[data-zone="${zone}"]`);
         button.style.transform = 'scale(0.95)';
@@ -107,8 +128,12 @@
         }, 100);
     }
 
-    // Инициализация: устанавливаем стрелку на начальную позицию (середина MEDIUM зоны)
-    setNeedlePosition(40);
+    // Инициализация: устанавливаем стрелку на начальную позицию (зелёная зона)
+    setNeedlePosition(getRandomInRange(0, 20));
+    // Показываем иконку листа при загрузке (зелёная зона)
+    leafIcon.classList.remove('hidden');
+    alertIcon.classList.add('hidden');
+    radiationIcon.classList.add('hidden');
 
     // Добавляем обработчики событий на кнопки
     buttons.forEach(button => {
